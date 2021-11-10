@@ -16,7 +16,12 @@ def run(pl):
         music = yt.streams.get_audio_only()
         print("Downloading " + music.default_filename + "...")
         music.download(filepath)
-    
+            # Converting
+        file_mp4 = filepath + music.default_filename[:-4] + ".mp4"
+        file_mp3 = filepath + music.default_filename[:-4] + ".mp3"
+        ffmpeg = ("ffmpeg -i \"" + file_mp4 + "\" \"" + file_mp3 + "\"")
+        subprocess.call(ffmpeg, shell=True)
+        os.remove(file_mp4)
     print("Download finished.")
 
 if __name__ == "__main__":
